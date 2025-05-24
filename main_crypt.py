@@ -231,25 +231,26 @@ def verify_key(plaintext, recovered_key, original_cipher):      #|#| > Funkce ov
 
 #______________________PROGRAM INITIALIZATION_______________________#
 #0000000000000000000000000000000000000000000000000000000000000000#|#|---
-for i in os.listdir("Testovaci_soubory"):                        #|#|
-    with open(f"Testovaci_soubory/{i}",                          #|#|
-               "r", encoding="utf-8") as file:                   #|#|
-        cipher = file.read()                                     #|#|
-#----------------------------------------------------------------#|#|---
-    parts = i.split("_")    #CHECK THESE 7 LINES, IVE GOT NO IDEA WHAT I DID WITH IT :D           #|#|
-    mult = 20000                                                #|#|
-    smallCypr = "off"       #u malé šifry se neupoužije slovník  #|#|
-    if int(parts[1]) < 1000:                                     #|#|
-        mult += 1000                                            #|#|
-        smallCypr = "on"                                         #|#|
-#----------------------------------------------------------------#|#|---
-    decrypted = prolom_substitute(cipher, mult, smallCypr)       #|#|
-#----------------------------------------------------------------#|#|---
-    filepart = "_".join(parts[0:-1])                             #|#|
-    with open(f"Decrypted_text/{filepart}_plaintext.txt",        #|#|
-               "w", encoding="utf-8") as file:                   #|#|
-        file.write(decrypted[0])                                 #|#|
-    with open(f"Decrypted_keys/{filepart}_key.txt",              #|#|
-               "w", encoding="utf-8") as file:                   #|#|
-        file.write("".join(decrypted[1]))                        #|#|
+if __name__ == "__main__":
+    for i in os.listdir("Testovaci_soubory"):                        #|#|
+        with open(f"Testovaci_soubory/{i}",                          #|#|
+                "r", encoding="utf-8") as file:                   #|#|
+            cipher = file.read()                                     #|#|
+    #----------------------------------------------------------------#|#|---
+        parts = i.split("_")    #CHECK THESE 7 LINES, IVE GOT NO IDEA WHAT I DID WITH IT :D           #|#|
+        mult = 20000                                                #|#|
+        smallCypr = "off"       #u malé šifry se neupoužije slovník  #|#|
+        if int(parts[1]) < 1000:                                     #|#|
+            mult += 1000                                            #|#|
+            smallCypr = "on"                                         #|#|
+    #----------------------------------------------------------------#|#|---
+        decrypted = prolom_substitute(cipher, mult, smallCypr)       #|#|
+    #----------------------------------------------------------------#|#|---
+        filepart = "_".join(parts[0:-1])                             #|#|
+        with open(f"Decrypted_text/{filepart}_plaintext.txt",        #|#|
+                "w", encoding="utf-8") as file:                   #|#|
+            file.write(decrypted[0])                                 #|#|
+        with open(f"Decrypted_keys/{filepart}_key.txt",              #|#|
+                "w", encoding="utf-8") as file:                   #|#|
+            file.write("".join(decrypted[1]))                        #|#|
 #0000000000000000000000000000000000000000000000000000000000000000#|#|---
